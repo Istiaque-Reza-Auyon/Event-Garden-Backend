@@ -7,7 +7,7 @@ import db from '../../db';
 interface IEvent {
     id: number;
     name: string;
-    organizationId: string;
+    organizationId: number;
     startDate: Date;
     endDate: Date;
     venue: string;
@@ -34,9 +34,11 @@ const Event = db.define<EventInstance>('event', {
     },
     name: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     organizationId: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     startDate: {
         type: DataTypes.DATE,
@@ -52,6 +54,7 @@ const Event = db.define<EventInstance>('event', {
     },
     live : {
         type: DataTypes.BOOLEAN,
+        allowNull: false
     }
 })
 
