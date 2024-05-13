@@ -1,5 +1,8 @@
-import { start } from "repl";
+
 import { Event,IEvent } from "./model";
+import { Ticket, ITicket } from "../ticket/model";
+import { Op } from '@sequelize/core';
+
 
 const createEventQuery = (event:IEvent) => Event.create ({
     name: event.name,
@@ -8,29 +11,33 @@ const createEventQuery = (event:IEvent) => Event.create ({
     endDate: event.endDate,
     venue: event.venue,
     poster: event.poster,
+    zone: event.zone,
+    latitude: event.latitude,
+    longitude: event.longitude,
     live: event.live
 })
 
-const updateEventQuery = async (event:IEvent) => {
-    const targetEvent = await Event.findOne({ where: {
-    id : event.id
-    }
-})
-    if (targetEvent!= null) {
-        targetEvent.name = event.name || targetEvent.name,
-        targetEvent.organizationId = event.organizationId || targetEvent.organizationId,
-        targetEvent.startDate = event.startDate || targetEvent.startDate,
-        targetEvent.endDate = event.endDate || targetEvent.endDate,
-        targetEvent.venue = event.venue || targetEvent.venue,
-        targetEvent.poster =  event.poster || targetEvent.poster,
-        targetEvent.live = event.live || targetEvent.live
+const updateEventQuery = async (event:IEvent) => Event.update(event,{ where: { id : event.id},},);
 
-        targetEvent.save();
 
-        return targetEvent;
-    } else {
-        return null;
-    }
-}
+const findAllEventsQuery = (queryObject: any) => Ticket.findAll({
+    include: [{
+        model: Event,
+        where: queryObject.zone?{zone: queryObject.zone} : {},
+        attributes: ['id', 'name', 'venue', 'poster', 'startDate'],
+        
+    }],
+    where: queryObject.price?{ 
+        price: { 
+            [Op.gte]: queryObject.startPrice,
+            [Op.lte]: queryObject.endPrice
+     }}: {},
+     attributes: [],
+     raw: true,
+     group: ['event.id']
+   })
 
-export {createEventQuery, updateEventQuery};
+
+const findOneEventQuery = (eventId:number) => Event.findOne({ where: { id: eventId},},);
+
+export {createEventQuery, updateEventQuery, findAllEventsQuery,findOneEventQuery};

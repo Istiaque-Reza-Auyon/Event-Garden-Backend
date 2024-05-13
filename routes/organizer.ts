@@ -1,10 +1,14 @@
 import express from "express";
-import {createEvent, createOrganization, updateEvent} from "../controller/organizer";
+import {createEvent, createOrganization, updateEvent, findOneOrganization, findAllOrganizations, createTicket} from "../controller/organizer";
 
 
 const routerOrganizer = express.Router();
 
-routerOrganizer.post("/admin/:orgId/create-event", createEvent);
-routerOrganizer.post("/admin/create-organization", createOrganization);
-routerOrganizer.post("/admin/:eventId/update-event", updateEvent);
+
+routerOrganizer.post("/admin/organization/create", createOrganization);
+routerOrganizer.get("/admin/organization/find/:orgId", findOneOrganization);
+routerOrganizer.get("/admin/organization/find/all", findAllOrganizations);
+routerOrganizer.post("/admin/organization/event/create/:orgId", createEvent);
+routerOrganizer.post("/admin/event/update/:eventId", updateEvent);
+routerOrganizer.post("/admin/organization/event/ticket/create/:eventId", createTicket);
 export default routerOrganizer;

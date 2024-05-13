@@ -11,4 +11,8 @@ const createOrganizationQuery = (organization:IOrganization) => Organization.cre
     customLinks: organization.customLinks
 })
 
-export {createOrganizationQuery};
+const findOneOrganizationQuery = (organizationId:number) => Organization.findOne({where: {id: organizationId},},);
+
+const findAllOrganizationsQuery = () => Organization.findAll();
+
+export {createOrganizationQuery, findOneOrganizationQuery, findAllOrganizationsQuery};

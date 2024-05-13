@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import db from '../../db';
-
+import { Ticket } from '../ticket/model';
 
 //defining user model
 
@@ -12,6 +12,9 @@ interface IEvent {
     endDate: Date;
     venue: string;
     poster: string;
+    zone: string;
+    latitude: number;
+    longitude: number;
     live: boolean;
 }
 
@@ -52,10 +55,22 @@ const Event = db.define<EventInstance>('event', {
     poster: {
         type: DataTypes.STRING,
     },
+    zone: {
+        type: DataTypes.STRING,
+    },
+    latitude: {
+        type: DataTypes.NUMBER,
+    },
+    longitude: {
+        type: DataTypes.NUMBER,
+    },
     live : {
         type: DataTypes.BOOLEAN,
         allowNull: false
     }
 })
+
+Ticket.belongsTo(Event)
+Event.hasMany(Ticket)
 
   export {Event, IEvent};
