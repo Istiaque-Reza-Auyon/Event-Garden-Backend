@@ -9,6 +9,8 @@ interface IUser {
     email: string;
     password: string;
     userId: string;
+    firstName: string;
+    lastName: string;
     gender: "male" | "female" | "others";
 }
 
@@ -31,12 +33,22 @@ const User = db.define<UserInstance>('user', {
     },
     email: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     password: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     userId: {
         type: DataTypes.STRING,
+    },
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     gender: {
         type: DataTypes.STRING,

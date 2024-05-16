@@ -40,7 +40,7 @@ const Event = db.define<EventInstance>('event', {
         allowNull: false
     },
     organizationId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     startDate: {
@@ -59,10 +59,10 @@ const Event = db.define<EventInstance>('event', {
         type: DataTypes.STRING,
     },
     latitude: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.FLOAT,
     },
     longitude: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.FLOAT,
     },
     live : {
         type: DataTypes.BOOLEAN,

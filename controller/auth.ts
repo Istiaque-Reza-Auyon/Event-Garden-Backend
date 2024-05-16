@@ -1,13 +1,21 @@
 import jwt from 'jsonwebtoken';
 
 import { Request,Response } from "express";
-import { createUser, signInUser } from "../model/user/query";
+import { createUser, signInUser,emailExistsOrNot } from "../model/user/query";
 
 const signUp = async (req: Request, res: Response) => {
     const user  = req.body;
+    console.log('email:', user.email);
+    const secretKey = 'This_is_the_secret_key';
     try {
-        await createUser(user);
-        res.status(200).send('User created successfully');
+        const validation = await emailExistsOrNot(user);
+        if (validation) res.json('email already exists')
+       else {
+        const result = await createUser(user);
+        if (!result) res.json('error');
+        else {
+          res.json(jwt.sign(result.dataValues, secretKey));
+        }}
     } catch(e) {
         console.error('Error creating user:', e);
         res.status(500).send('Internal Server Error');

@@ -4,7 +4,15 @@ const createUser = (user:IUser) => User.create ({
     email: user.email,
     password: user.password,
     userId: user.userId,
+    firstName: user.firstName,
+    lastName: user.lastName,
     gender: user.gender
+})
+
+const emailExistsOrNot = (user: IUser) => User.findOne({
+    where: {
+        email: user.email
+    }
 })
 
 const signInUser = (user: IUser) => User.findOne({
@@ -14,4 +22,4 @@ const signInUser = (user: IUser) => User.findOne({
     }
 })
 
-export  {createUser, signInUser}
+export  {createUser, signInUser, emailExistsOrNot}
