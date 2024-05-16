@@ -14,7 +14,7 @@ const signUp = async (req: Request, res: Response) => {
         const result = await createUser(user);
         if (!result) res.json('error');
         else {
-          res.json(jwt.sign(result.dataValues, secretKey));
+          res.json(jwt.sign(result.dataValues.password, secretKey));
         }}
     } catch(e) {
         console.error('Error creating user:', e);
@@ -27,9 +27,9 @@ const signUp = async (req: Request, res: Response) => {
     const secretKey = 'This_is_the_secret_key';
     try {
       const user =   await signInUser(signee);
-      if (user == null) res.json('no user found');
+      if (user == null) res.json(null);
       else {
-        res.json(jwt.sign(user.dataValues, secretKey));
+        res.json(jwt.sign(user.dataValues.password, secretKey));
       }
     } catch(e) {
         console.error('Error creating user:', e);
