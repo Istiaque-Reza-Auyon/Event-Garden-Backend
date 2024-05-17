@@ -1,6 +1,6 @@
 
 import { Event,IEvent } from "./model";
-import { Ticket, ITicket } from "../ticket/model";
+import { Ticket } from "../ticket/model";
 import { Op } from '@sequelize/core';
 
 

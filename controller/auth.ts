@@ -5,7 +5,6 @@ import { createUser, signInUser,emailExistsOrNot } from "../model/user/query";
 
 const signUp = async (req: Request, res: Response) => {
     const user  = req.body;
-    console.log('email:', user.email);
     const secretKey = 'This_is_the_secret_key';
     try {
         const validation = await emailExistsOrNot(user);

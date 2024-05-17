@@ -7,15 +7,14 @@ import { createOrganizationQuery, findOneOrganizationQuery, findAllOrganizations
 
 //Controller for creating an event for an organization
 const createEvent = async (req: Request, res:Response) => {
-    console.log('here');
     const event = req.body ;
     event.organizationId = Number(req.params.orgId);
     try {
         await createEventQuery(event);
-        res.status(200).send('event created successfully');
+        res.status(200).json('event created successfully');
     } catch (e) {
         console.error('Error creating user:', e);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json(null);
     }
 }
 
@@ -40,10 +39,10 @@ const createOrganization = async (req: Request, res:Response) => {
     const organization = req.body ;
     try {
         await createOrganizationQuery(organization);
-        res.status(200).send('organization created successfully');
+        res.status(200).json('organization created successfully');
     } catch (e) {
         console.error('Error cregatin user:', e);
-        res.status(500).send('Error creating organization');
+        res.status(500).json(null);
     }
 }
 

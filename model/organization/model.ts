@@ -8,6 +8,7 @@ interface IOrganization {
     id: number;
     name: string;
     adminId: number;
+    country: string
     bioGraphy: string;
     instaUsername: string;
     twitterUsername: string;
@@ -39,7 +40,11 @@ const Organization = db.define<OrganizationInstance>('organization', {
     },
     adminId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true,
+    },
+    country: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     bioGraphy: {
         type: DataTypes.STRING,

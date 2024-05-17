@@ -41,7 +41,7 @@ const Event = db.define<EventInstance>('event', {
     },
     organizationId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     startDate: {
         type: DataTypes.DATE,
@@ -66,7 +66,6 @@ const Event = db.define<EventInstance>('event', {
     },
     live : {
         type: DataTypes.BOOLEAN,
-        allowNull: false
     }
 })
 
