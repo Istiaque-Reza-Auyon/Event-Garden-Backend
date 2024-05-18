@@ -9,6 +9,7 @@ interface ITicket {
     name: string;
     price: number;
     quantity: number;
+    startTime: Date;
     eventId: number;
 }
 
@@ -40,10 +41,14 @@ const Ticket = db.define<TicketInstance>('ticket', {
     quantity: {
         type: DataTypes.INTEGER,
     },
+    startTime: {
+        type: DataTypes.DATE,
+    },
     eventId: {
         type: DataTypes.INTEGER,
         allowNull: false
     }
 })
+
 
   export {Ticket, ITicket};

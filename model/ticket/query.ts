@@ -6,6 +6,7 @@ const createTicketQuery = (ticket:ITicket) => Ticket.create ({
     name: ticket.name,
     price: ticket.price,
     quantity: ticket.quantity,
+    startTime: ticket.startTime,
     eventId: ticket.eventId
 })
 

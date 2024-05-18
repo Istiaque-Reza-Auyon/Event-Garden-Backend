@@ -2,6 +2,7 @@ import { Request,Response } from "express";
 import { createEventQuery, updateEventQuery } from "../model/event/query";
 import { createTicketQuery } from "../model/ticket/query";
 import { createOrganizationQuery, findOneOrganizationQuery, findAllOrganizationsQuery } from "../model/organization/query";
+import { ITicket } from "../model/ticket/model";
 
 
 
@@ -10,8 +11,8 @@ const createEvent = async (req: Request, res:Response) => {
     const event = req.body ;
     event.organizationId = Number(req.params.orgId);
     try {
-        await createEventQuery(event);
-        res.status(200).json('event created successfully');
+        const createdEvent = await createEventQuery(event);
+        res.status(200).json(createdEvent.id);
     } catch (e) {
         console.error('Error creating user:', e);
         res.status(500).json(null);
@@ -76,14 +77,14 @@ const findAllOrganizations = async (req:Request, res:Response) => {
 
 //Controller for creating ticket
 const createTicket = async (req: Request, res:Response) => {
-    const ticket = req.body ;
-    ticket.eventId = Number(req.params.eventId);
+    const ticketList = req.body ;
+    ticketList.map((ticket:ITicket) => ticket.eventId = Number(req.params.eventId))
     try {
-        await createTicketQuery(ticket);
-        res.status(200).send('ticket created successfully');
+        await ticketList.map((ticket:ITicket) => createTicketQuery(ticket));
+        res.status(200).json('ticket created successfully');
     } catch (e) {
         console.error('Error creating user:', e);
-        res.status(500).send('Internal Server Error');
+        res.status(500).json(null);
     }
 }
 

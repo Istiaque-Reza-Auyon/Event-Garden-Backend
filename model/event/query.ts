@@ -24,8 +24,7 @@ const findAllEventsQuery = (queryObject: any) => Ticket.findAll({
     include: [{
         model: Event,
         where: queryObject.zone?{zone: queryObject.zone} : {},
-        attributes: ['id', 'name', 'venue', 'poster', 'startDate'],
-        
+        attributes: ['id', 'name', 'venue', 'poster', 'startDate', 'organizationId'],   
     }],
     where: queryObject.price?{ 
         price: { 
