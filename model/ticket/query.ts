@@ -10,4 +10,6 @@ const createTicketQuery = (ticket:ITicket) => Ticket.create ({
     eventId: ticket.eventId
 })
 
-export {createTicketQuery};
+const findAllTicketsQuery = (eventId:number) => Ticket.findAll({where: {eventId: eventId},},);
+
+export {createTicketQuery, findAllTicketsQuery};

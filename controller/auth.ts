@@ -28,7 +28,8 @@ const signUp = async (req: Request, res: Response) => {
       const user =   await signInUser(signee);
       if (user == null) res.json(null);
       else {
-        res.json(jwt.sign(user.dataValues.password, secretKey));
+        console.log(user.dataValues);
+        res.json(jwt.sign(user.dataValues, secretKey));
       }
     } catch(e) {
         console.error('Error creating user:', e);
