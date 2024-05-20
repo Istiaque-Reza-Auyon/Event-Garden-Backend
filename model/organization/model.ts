@@ -1,11 +1,12 @@
 import { DataTypes, Model, Optional } from 'sequelize';
+import { Event } from '../event/model';
 import db from '../../db';
 
 
 //defining user model
 
 interface IOrganization {
-    id: number;
+    id?: number;
     name: string;
     adminId: number;
     country: string
@@ -65,5 +66,9 @@ const Organization = db.define<OrganizationInstance>('organization', {
         type: DataTypes.STRING,
     }
 })
+
+Event.belongsTo(Organization)
+Organization.hasMany(Event)
+
 
   export {Organization, IOrganization};

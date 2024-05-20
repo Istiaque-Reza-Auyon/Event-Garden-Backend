@@ -1,6 +1,7 @@
 
 import { Event,IEvent } from "./model";
 import { Ticket } from "../ticket/model";
+import { Attendee } from "../attendee/model";
 import { Op } from '@sequelize/core';
 
 
@@ -14,7 +15,8 @@ const createEventQuery = (event:IEvent) => Event.create ({
     zone: event.zone,
     latitude: event.latitude,
     longitude: event.longitude,
-    live: event.live
+    live: event.live,
+    description: event.description
 })
 
 const updateEventQuery = async (event:IEvent) => Event.update(event,{ where: { id : event.id},},);
@@ -38,5 +40,7 @@ const findAllEventsQuery = (queryObject: any) => Ticket.findAll({
 
 
 const findOneEventQuery = (eventId:number) => Event.findOne({ where: { id: eventId},},);
+
+
 
 export {createEventQuery, updateEventQuery, findAllEventsQuery,findOneEventQuery};

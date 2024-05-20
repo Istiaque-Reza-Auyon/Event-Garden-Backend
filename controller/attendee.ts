@@ -1,9 +1,10 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
-
+import { JwtPayload } from 'jsonwebtoken';
 import { Request,Response } from "express";
 import { findAllEventsQuery,findOneEventQuery } from "../model/event/query";
-import { checkOutUserQuery } from '../model/attendee/query';
+import { checkOutUserQuery, findAllAttendeesQuery } from '../model/attendee/query';
 import { IAttendee } from '../model/attendee/model';
+import { ticketDestructuring } from '../utils';
+
 
 const findAllEvents = async (req:Request, res:Response) => {
     try{
@@ -18,7 +19,9 @@ const findAllEvents = async (req:Request, res:Response) => {
 const findOneEvent = async (req:Request, res:Response) => {
     try{
         const eventId = Number(req.params.eventId)
-        const event = await findOneEventQuery(eventId);
+        const event:any = await findOneEventQuery(eventId);
+        const attendeeCount = await findAllAttendeesQuery(eventId);
+        event.attendeeCount = attendeeCount.length;
         res.status(200).json(event);
     } catch(e) {
         console.error('Error creating user:', e);
@@ -27,20 +30,14 @@ const findOneEvent = async (req:Request, res:Response) => {
 }
 
 const checkOutUser = async (req:Request, res:Response) => {
-    const secretKey = 'This_is_the_secret_key';
-    let user:JwtPayload;
-    jwt.verify(req.cookies.token,secretKey, (err: any, decoded: any) => {
-        if(err) {
-            res.json(null);
-        } else {
-            user = decoded;
-        }
-    });
+    
+    const user:JwtPayload = req.body.user;
     const tickets = req.body;
-    const input = tickets?.map ((ticket:IAttendee) => {return {eventId: ticket.eventId, userId: user.id, ticketId: ticket.id}})
+    const input:IAttendee[] = ticketDestructuring(tickets,user);
     try {
+        console.log(input);
         const createdAttendeeRecord = await checkOutUserQuery(input);
-        res.status(200).json('created');
+        res.status(200).json(createdAttendeeRecord);
     } catch (e) {
         console.error('Chekout unsuccessful:', e);
         res.status(500).json(null);

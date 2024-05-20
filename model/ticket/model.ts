@@ -5,7 +5,7 @@ import db from '../../db';
 //defining user model
 
 interface ITicket {
-    id: number;
+    id?: number;
     name: string;
     price: number;
     quantity: number;

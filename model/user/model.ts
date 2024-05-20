@@ -5,7 +5,7 @@ import db from '../../db';
 //defining user model
 
 interface IUser {
-    id: number;
+    id?: number;
     email: string;
     password: string;
     userId: string;

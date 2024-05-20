@@ -5,7 +5,7 @@ import { Ticket } from '../ticket/model';
 //defining user model
 
 interface IEvent {
-    id: number;
+    id?: number;
     name: string;
     organizationId: number;
     startDate: Date;
@@ -16,6 +16,7 @@ interface IEvent {
     latitude: number;
     longitude: number;
     live: boolean;
+    description: string;
 }
 
 
@@ -66,6 +67,9 @@ const Event = db.define<EventInstance>('event', {
     },
     live : {
         type: DataTypes.BOOLEAN,
+    },
+    description: {
+        type: DataTypes.STRING,
     }
 })
 

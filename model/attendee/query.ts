@@ -1,7 +1,14 @@
 import { Attendee, IAttendee } from "./model";
+import { Event } from "../event/model";
 
 const checkOutUserQuery = async (attendee:IAttendee[]) => {
-    Attendee.bulkCreate (attendee);
+  return  Attendee.bulkCreate (attendee);
 }
 
-export {checkOutUserQuery}
+const findAllAttendeesQuery = async (eventId: number) => Attendee.findAll({
+    where: eventId?{eventId: eventId} : {},
+     attributes: ['id'],
+     raw: true,
+   })
+
+export {checkOutUserQuery, findAllAttendeesQuery}

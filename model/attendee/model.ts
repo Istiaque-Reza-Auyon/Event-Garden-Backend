@@ -7,7 +7,7 @@ import { User } from '../user/model';
 //defining user model
 
 interface IAttendee {
-    id: number;
+    id?: number;
     eventId: number;
     userId: number;
     refund: boolean;
