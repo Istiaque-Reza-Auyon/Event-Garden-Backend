@@ -1,6 +1,7 @@
 import { IAttendee } from "./model/attendee/model";
 import { ITicketIncoming } from "./interfaces";
 import { JwtPayload } from 'jsonwebtoken';
+import { ITicket } from "./model/ticket/model";
 
 
     
@@ -13,5 +14,6 @@ import { JwtPayload } from 'jsonwebtoken';
         });
         return output;
     }
+
 
     export {ticketDestructuring}

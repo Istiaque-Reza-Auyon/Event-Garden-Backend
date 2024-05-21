@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import db from '../../db';
+import { Event } from '../event/model';
 
 
 //defining user model
@@ -49,6 +50,8 @@ const Ticket = db.define<TicketInstance>('ticket', {
         allowNull: false
     }
 })
+
+
 
 
   export {Ticket, ITicket};

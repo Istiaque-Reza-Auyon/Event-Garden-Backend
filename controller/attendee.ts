@@ -1,9 +1,10 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { Request,Response } from "express";
-import { findAllEventsQuery,findOneEventQuery } from "../model/event/query";
+import { findAllEventsQuery,findOneEventQuery, } from "../model/event/query";
 import { checkOutUserQuery, findAllAttendeesQuery } from '../model/attendee/query';
+import { findEventSpecificTicketsQuery } from '../model/ticket/query';
 import { IAttendee } from '../model/attendee/model';
-import { ticketDestructuring } from '../utils';
+import { ticketDestructuring} from '../utils';
 
 
 const findAllEvents = async (req:Request, res:Response) => {
@@ -21,7 +22,14 @@ const findOneEvent = async (req:Request, res:Response) => {
         const eventId = Number(req.params.eventId)
         const event:any = await findOneEventQuery(eventId);
         const attendeeCount = await findAllAttendeesQuery(eventId);
-        event.attendeeCount = attendeeCount.length;
+        const tickets:any = await findEventSpecificTicketsQuery(eventId);
+        const totalRevenue = await tickets.reduce(((total:any,each:any) => total + each.price),0);
+        const totalTicketsSold = tickets.length;
+        const users = await tickets.map((ticket:any)=> {return {name:ticket?.firstName + ' ' + ticket?.lastName, price:ticket?.price, orderId:ticket?.id, createdAt:ticket?.createdAt}})
+        event.dataValues.attendeeCount = attendeeCount.length;
+        event.dataValues.totalRevenue = totalRevenue;
+        event.dataValues.totalTicketsSold = totalTicketsSold;
+        event.dataValues.users = users;
         res.status(200).json(event);
     } catch(e) {
         console.error('Error creating user:', e);

@@ -1,4 +1,7 @@
 import { Ticket,ITicket } from "./model";
+import { Attendee } from "../attendee/model";
+import { User } from "../user/model";
+import { group } from "console";
 
 
 const createTicketQuery = (ticket:ITicket) => Ticket.create ({
@@ -12,4 +15,15 @@ const createTicketQuery = (ticket:ITicket) => Ticket.create ({
 
 const findAllTicketsQuery = (eventId:number) => Ticket.findAll({where: {eventId: eventId},},);
 
-export {createTicketQuery, findAllTicketsQuery};
+const findEventSpecificTicketsQuery = (eventId:number) =>  Attendee.findAll({include: [{
+      model: Ticket,
+    },
+    {
+      model: User,  
+    }],
+    where: {eventId: eventId},
+    attributes: ['ticket.price', 'user.firstName', 'user.lastName','id','ticket.createdAt'],
+    raw:true},
+    );
+
+export {createTicketQuery, findAllTicketsQuery,findEventSpecificTicketsQuery};
