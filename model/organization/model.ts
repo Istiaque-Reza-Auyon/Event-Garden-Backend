@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { Event } from '../event/model';
 import db from '../../db';
+import { User } from '../user/model';
 
 
 //defining user model
@@ -67,8 +68,10 @@ const Organization = db.define<OrganizationInstance>('organization', {
     }
 })
 
-Event.belongsTo(Organization)
-Organization.hasMany(Event)
+Event.belongsTo(Organization, { foreignKey: 'organizationId' })
+Organization.hasMany(Event, { foreignKey: 'organizationId' })
+
+// User.hasMany(Event)
 
 
   export {Organization, IOrganization};

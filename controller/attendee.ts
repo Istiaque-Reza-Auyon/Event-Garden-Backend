@@ -5,14 +5,26 @@ import { checkOutUserQuery, findAllAttendeesQuery } from '../model/attendee/quer
 import { findEventSpecificTicketsQuery } from '../model/ticket/query';
 import { IAttendee } from '../model/attendee/model';
 import { ticketDestructuring} from '../utils';
+import { findUserByIdQuery } from '../model/user/query';
+
+const findUserById = async (req:Request, res:Response) => {
+    try {
+        const userId = Number(req.params.userId);
+        const user = await findUserByIdQuery(userId);
+        res.status(200).json(user);
+    } catch(e:any) {
+        console.error('Error finding user:', e.message);
+        res.status(500).json(null);
+    }
+}
 
 
 const findAllEvents = async (req:Request, res:Response) => {
     try{
         const events = await findAllEventsQuery(req.query);
         res.status(200).json(events);
-    } catch(e) {
-        console.error('Error creating user:', e);
+    } catch(e:any) {
+        console.error('Error creating user:', e.message);
         res.status(500).json(null);
     }
 }
@@ -31,7 +43,7 @@ const findOneEvent = async (req:Request, res:Response) => {
         event.dataValues.totalTicketsSold = totalTicketsSold;
         event.dataValues.users = users;
         res.status(200).json(event);
-    } catch(e) {
+    } catch(e:any) {
         console.error('Error creating user:', e);
         res.status(500).json(null);
     }
@@ -46,10 +58,10 @@ const checkOutUser = async (req:Request, res:Response) => {
         console.log(input);
         const createdAttendeeRecord = await checkOutUserQuery(input);
         res.status(200).json(createdAttendeeRecord);
-    } catch (e) {
-        console.error('Chekout unsuccessful:', e);
+    } catch (e:any) {
+        console.error('Chekout unsuccessful:', e.message);
         res.status(500).json(null);
     }
 }
 
-export {findAllEvents, findOneEvent, checkOutUser}
+export {findAllEvents, findOneEvent, checkOutUser, findUserById}

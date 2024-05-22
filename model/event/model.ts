@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import db from '../../db';
 import { Ticket } from '../ticket/model';
+import { User } from '../user/model';
 
 //defining user model
 
@@ -75,5 +76,7 @@ const Event = db.define<EventInstance>('event', {
 
 Ticket.belongsTo(Event)
 Event.hasMany(Ticket)
+
+
 
   export {Event, IEvent};

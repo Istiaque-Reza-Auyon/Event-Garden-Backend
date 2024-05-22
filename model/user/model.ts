@@ -1,4 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
+import { Event } from '../event/model';
+import { Organization } from '../organization/model';
 import db from '../../db';
 
 
@@ -11,6 +13,7 @@ interface IUser {
     userId: string;
     firstName: string;
     lastName: string;
+    profilePic?: string;
     gender: "male" | "female" | "others";
 }
 
@@ -52,7 +55,15 @@ const User = db.define<UserInstance>('user', {
     },
     gender: {
         type: DataTypes.STRING,
+    },
+    profilePic: {
+        type: DataTypes.STRING,
     }
 })
+
+Organization.belongsTo(User, { foreignKey: 'adminId' })
+User.hasMany(Organization, {foreignKey: 'adminId'})
+
+
 
   export {User, IUser};

@@ -1,3 +1,4 @@
+import { Organization } from "../organization/model";
 import {User,IUser} from "../user/model";
 
 const createUser = (user:IUser) => User.create ({
@@ -7,6 +8,12 @@ const createUser = (user:IUser) => User.create ({
     firstName: user.firstName,
     lastName: user.lastName,
     gender: user.gender
+})
+
+const findUserByIdQuery = (id:number) =>  User.findOne({
+    where:{
+        id: id
+    }
 })
 
 const emailExistsOrNot = (user: IUser) => User.findOne({
@@ -22,4 +29,4 @@ const signInUser = (user: IUser) => User.findOne({
     }
 })
 
-export  {createUser, signInUser, emailExistsOrNot}
+export  {createUser, signInUser, emailExistsOrNot,findUserByIdQuery}

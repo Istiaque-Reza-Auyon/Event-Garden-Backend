@@ -66,8 +66,8 @@ const findAllOrganizations = async (req:Request, res:Response) => {
     try {
         const organizations = await findAllOrganizationsQuery();
         res.status(200).json(organizations);
-    } catch (e) {
-        console.error('Error cregatin user:', e);
+    } catch (e:any) {
+        console.error('Error cregatin user:', e.message);
         res.status(500).json('Error finding all organizations');
     }
 }
