@@ -69,7 +69,7 @@ const findAllOrganizations = async (req:Request, res:Response) => {
         const organizations = await findAllOrganizationsQuery(user);
         res.status(200).json(organizations);
     } catch (e:any) {
-        console.error('Error cregatin user:', e.message);
+        console.error(e.message);
         res.status(500).json('Error finding all organizations');
     }
 }
@@ -90,8 +90,10 @@ const findAllOrganizations = async (req:Request, res:Response) => {
 
 //Controller for creating ticket
 const createTicket = async (req: Request, res:Response) => {
-    const ticketList = req.body ;
-    ticketList.map((ticket:ITicket) => ticket.eventId = Number(req.params.eventId))
+    console.log(req.body);
+    const ticketList: any = req.body ;
+    console.log(ticketList);
+    ticketList?.map((ticket:ITicket) => ticket.eventId = Number(req.params.eventId))
     try {
         await ticketList.map((ticket:ITicket) => createTicketQuery(ticket));
         res.status(200).json('ticket created successfully');

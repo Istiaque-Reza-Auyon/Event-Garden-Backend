@@ -8,7 +8,6 @@ const routerOrganizer = express.Router();
 
 routerOrganizer.post("/admin/organization/create", createOrganization);
 routerOrganizer.get("/admin/organization/find/all/:orgId", findOneOrganization);
-// routerOrganizer.get("/admin/organization/find/one/:orgId", findOrganizationSpecificEvent);
 routerOrganizer.get("/admin/organization/find/all", authMiddleware, findAllOrganizations);
 routerOrganizer.post("/admin/event/create/:orgId", createEvent);
 routerOrganizer.post("/admin/event/update/:eventId", updateEvent);

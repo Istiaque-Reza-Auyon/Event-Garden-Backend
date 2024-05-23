@@ -28,7 +28,6 @@ const signUp = async (req: Request, res: Response) => {
       const user =   await signInUser(signee);
       if (user == null) res.json(null);
       else {
-        console.log(user.dataValues);
         res.json(jwt.sign(user.dataValues, secretKey));
       }
     } catch(e) {
