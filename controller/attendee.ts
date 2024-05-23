@@ -49,13 +49,11 @@ const findOneEvent = async (req:Request, res:Response) => {
     }
 }
 
-const checkOutUser = async (req:Request, res:Response) => {
-    
+const checkOutUser = async (req:Request, res:Response) => {    
     const user:JwtPayload = req.body.user;
     const tickets = req.body;
     const input:IAttendee[] = ticketDestructuring(tickets,user);
     try {
-        console.log(input);
         const createdAttendeeRecord = await checkOutUserQuery(input);
         res.status(200).json(createdAttendeeRecord);
     } catch (e:any) {

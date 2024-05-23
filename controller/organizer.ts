@@ -3,6 +3,7 @@ import { createEventQuery, updateEventQuery } from "../model/event/query";
 import { createTicketQuery, findAllTicketsQuery } from "../model/ticket/query";
 import { createOrganizationQuery, findOneOrganizationQuery, findAllOrganizationsQuery } from "../model/organization/query";
 import { ITicket } from "../model/ticket/model";
+import { JwtPayload } from "jsonwebtoken";
 
 
 
@@ -63,8 +64,9 @@ const findOneOrganization = async (req: Request, res:Response) => {
 
 //Controller for finding all organizations
 const findAllOrganizations = async (req:Request, res:Response) => {
+    const user:JwtPayload = req.body.user;
     try {
-        const organizations = await findAllOrganizationsQuery();
+        const organizations = await findAllOrganizationsQuery(user);
         res.status(200).json(organizations);
     } catch (e:any) {
         console.error('Error cregatin user:', e.message);
@@ -106,10 +108,21 @@ const findAllTickets = async (req: Request, res:Response) => {
         const eventId = Number(req.params.eventId);
         const tickets = await findAllTicketsQuery(eventId);
         res.status(200).json(tickets);
-    }catch (e) {
-        console.error('Error creating user:', e);
+    }catch (e:any) {
+        console.error('Error creating user:', e.messaage);
         res.status(500).json(null);
     }
 }
 
-export {createEvent, createOrganization, updateEvent,findOneOrganization, findAllOrganizations, createTicket, findAllTickets, }
+
+//controller for finding user id
+const findId = async (req: Request, res: Response) => {
+    try {
+        const user: JwtPayload = req.body.user;
+        res.status(200).json(user.id);
+    } catch(e:any) {
+        console.error('Error finding user:', e.messaage);
+        res.status(500).json('err');
+    }
+}
+export {createEvent, createOrganization, updateEvent,findOneOrganization, findAllOrganizations, createTicket, findAllTickets, findId}

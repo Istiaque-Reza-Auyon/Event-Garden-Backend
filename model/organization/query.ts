@@ -2,6 +2,7 @@ import { Organization,IOrganization } from "./model";
 import { Event } from "../event/model";
 import { Attendee } from "../attendee/model";
 import { Ticket } from "../ticket/model";
+import { JwtPayload } from "jsonwebtoken";
 
 const createOrganizationQuery = (organization:IOrganization) => Organization.create ({
     name: organization.name,
@@ -23,7 +24,7 @@ const findOneOrganizationQuery = (organizationId:number) => Organization.findOne
     }]   
 }],where: {id: organizationId},},);
 
-const findAllOrganizationsQuery = () => Organization.findAll();
+const findAllOrganizationsQuery = (user:JwtPayload) => Organization.findAll({where: {adminId: user.id},},);
 
 // const organizationSpecificEventsQuery = async (orgId:number) => Event.findAll({ where: { id: orgId},},)
 

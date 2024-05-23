@@ -7,6 +7,7 @@ const authMiddleware = (req:Request, res:Response, next:NextFunction) =>  {
     if (req.cookies) {jwt.verify(req.cookies.token,secretKey, (err: any, decoded: any) => {
         
     if(err) {
+        console.log(err)
         res.json('error parsing jwt')
     } else {
         req.body.user = decoded;
