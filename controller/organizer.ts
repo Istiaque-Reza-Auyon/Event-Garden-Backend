@@ -38,12 +38,14 @@ const updateEvent = async(req: Request, res:Response) => {
 
 //Controller for creating an organization for an organizer
 const createOrganization = async (req: Request, res:Response) => {
+    const user:JwtPayload = req.body.user;
     const organization = req.body ;
+    organization.adminId = user.id;
     try {
         await createOrganizationQuery(organization);
         res.status(200).json('organization created successfully');
     } catch (e) {
-        console.error('Error cregatin user:', e);
+        console.error('Error creating organization:', e);
         res.status(500).json(null);
     }
 }
@@ -90,9 +92,7 @@ const findAllOrganizations = async (req:Request, res:Response) => {
 
 //Controller for creating ticket
 const createTicket = async (req: Request, res:Response) => {
-    console.log(req.body);
     const ticketList: any = req.body ;
-    console.log(ticketList);
     ticketList?.map((ticket:ITicket) => ticket.eventId = Number(req.params.eventId))
     try {
         await ticketList.map((ticket:ITicket) => createTicketQuery(ticket));

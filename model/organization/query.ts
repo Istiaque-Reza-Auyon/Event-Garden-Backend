@@ -13,7 +13,8 @@ const createOrganizationQuery = (organization:IOrganization) => Organization.cre
     twitterUsername: organization.twitterUsername,
     linkedInUrl: organization.linkedInUrl,
     websiteUrl: organization.websiteUrl,
-    customLinks: organization.customLinks
+    customLinks: organization.customLinks,
+    poster: organization.poster
 })
 
 const findOneOrganizationQuery = (organizationId:number) => Organization.findOne({include: [{

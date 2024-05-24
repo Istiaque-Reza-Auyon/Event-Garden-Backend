@@ -6,7 +6,7 @@ import { authMiddleware } from '../middlewares/auth';
 const routerOrganizer = express.Router();
 
 
-routerOrganizer.post("/admin/organization/create", createOrganization);
+routerOrganizer.post("/admin/organization/create", authMiddleware, createOrganization);
 routerOrganizer.get("/admin/organization/find/all/:orgId", findOneOrganization);
 routerOrganizer.get("/admin/organization/find/all", authMiddleware, findAllOrganizations);
 routerOrganizer.post("/admin/event/create/:orgId", createEvent);

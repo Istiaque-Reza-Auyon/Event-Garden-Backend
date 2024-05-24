@@ -17,6 +17,7 @@ interface IOrganization {
     linkedInUrl: string;
     websiteUrl: string;
     customLinks: string;
+    poster: string;
 }
 
 
@@ -65,7 +66,10 @@ const Organization = db.define<OrganizationInstance>('organization', {
     },
     customLinks: {
         type: DataTypes.STRING,
-    }
+    }, 
+    poster: {
+        type: DataTypes.STRING,
+    },
 })
 
 Event.belongsTo(Organization, { foreignKey: 'organizationId' })
