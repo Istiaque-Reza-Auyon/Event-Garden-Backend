@@ -47,7 +47,7 @@ const Organization = db.define<OrganizationInstance>('organization', {
     },
     country: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     bioGraphy: {
         type: DataTypes.STRING,
