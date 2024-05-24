@@ -6,6 +6,7 @@ import { createUser, signInUser,emailExistsOrNot } from "../model/user/query";
 const signUp = async (req: Request, res: Response) => {
     const user  = req.body;
     const secretKey = 'This_is_the_secret_key';
+    
     try {
         const validation = await emailExistsOrNot(user);
         if (validation) res.json('email already exists')
@@ -13,7 +14,7 @@ const signUp = async (req: Request, res: Response) => {
         const result = await createUser(user);
         if (!result) res.json('error');
         else {
-          res.json(jwt.sign(result.dataValues.password, secretKey));
+          res.json(jwt.sign(result.dataValues, secretKey));
         }}
     } catch(e) {
         console.error('Error creating user:', e);
