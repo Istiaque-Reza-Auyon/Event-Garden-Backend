@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import { Organization } from "../organization/model";
 import {User,IUser} from "../user/model";
 
@@ -29,4 +30,17 @@ const signInUser = (user: IUser) => User.findOne({
     }
 })
 
-export  {createUser, signInUser, emailExistsOrNot,findUserByIdQuery}
+const updateProPicQuery = (user: IUser) => User.update(
+    {
+        profilePic: user.profilePic,
+    },
+   { 
+        where: {
+            id: user.id,
+        },
+    },
+)
+
+
+
+export  {createUser, signInUser, emailExistsOrNot,findUserByIdQuery, updateProPicQuery}

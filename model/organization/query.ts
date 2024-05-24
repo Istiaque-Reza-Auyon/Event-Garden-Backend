@@ -27,6 +27,5 @@ const findOneOrganizationQuery = (organizationId:number) => Organization.findOne
 
 const findAllOrganizationsQuery = (user:JwtPayload) => Organization.findAll({where: {adminId: user.id},},);
 
-// const organizationSpecificEventsQuery = async (orgId:number) => Event.findAll({ where: { id: orgId},},)
 
 export {createOrganizationQuery, findOneOrganizationQuery, findAllOrganizationsQuery};

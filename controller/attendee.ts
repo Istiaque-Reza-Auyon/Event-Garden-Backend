@@ -6,6 +6,7 @@ import { findEventSpecificTicketsQuery } from '../model/ticket/query';
 import { IAttendee } from '../model/attendee/model';
 import { ticketDestructuring} from '../utils';
 import { findUserByIdQuery } from '../model/user/query';
+import { updateProPicQuery } from '../model/user/query';
 
 const findUserById = async (req:Request, res:Response) => {
     try {
@@ -62,4 +63,18 @@ const checkOutUser = async (req:Request, res:Response) => {
     }
 }
 
-export {findAllEvents, findOneEvent, checkOutUser, findUserById}
+
+const updateProPic = async(req:Request, res:Response) => {
+    const user = req.body;
+    user.id = req.query.id;
+    try {
+        const data:any = await updateProPicQuery(user);
+        if (data) res.status(200).json('successful');
+    } catch(e:any) {
+        console.error('update unsuccessful', e.message);
+        res.status(500).json('unsuccessful');
+    }
+
+}
+
+export {findAllEvents, findOneEvent, checkOutUser, findUserById, updateProPic}

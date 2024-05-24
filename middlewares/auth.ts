@@ -5,7 +5,6 @@ import { findUserByIdQuery } from '../model/user/query';
 
 const authMiddleware = (req:Request, res:Response, next:NextFunction) =>  {
     const secretKey = 'This_is_the_secret_key';
-    console.log(req.cookies.token);
     if (req.cookies) {jwt.verify(req.cookies.token,secretKey, (err: any, decoded: any) => {
         
     if(err) {

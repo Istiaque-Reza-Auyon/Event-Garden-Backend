@@ -76,20 +76,6 @@ const findAllOrganizations = async (req:Request, res:Response) => {
     }
 }
 
-//controller for finding organization specific event
-// const findOrganizationSpecificEvent = async (req: Request, res:Response) => {
-//     const orgId = Number(req.params.orgId);  
-//     try{
-//      const events = await organizationSpecificEventsQuery(orgId);
-//      res.status(200).json(events);
-//     } catch(e) {
-//         console.error('Error finding organization specific events:', e);
-//         res.status(500).json(null); 
-//     }
-// }
-
-
-
 //Controller for creating ticket
 const createTicket = async (req: Request, res:Response) => {
     const ticketList: any = req.body ;
