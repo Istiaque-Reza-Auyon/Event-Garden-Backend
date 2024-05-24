@@ -42,8 +42,8 @@ const createOrganization = async (req: Request, res:Response) => {
     const organization = req.body ;
     organization.adminId = user.id;
     try {
-        await createOrganizationQuery(organization);
-        res.status(200).json('organization created successfully');
+        const data = await createOrganizationQuery(organization);
+        res.status(200).json(data.id);
     } catch (e) {
         console.error('Error creating organization:', e);
         res.status(500).json(null);
