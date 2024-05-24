@@ -38,7 +38,7 @@ const findOneEvent = async (req:Request, res:Response) => {
         const tickets:any = await findEventSpecificTicketsQuery(eventId);
         const totalRevenue = await tickets.reduce(((total:any,each:any) => total + each.price),0);
         const totalTicketsSold = tickets.length;
-        const users = await tickets.map((ticket:any)=> {return {name:ticket?.firstName + ' ' + ticket?.lastName, price:ticket?.price, orderId:ticket?.id, createdAt:ticket?.createdAt}})
+        const users = await tickets.map((ticket:any)=> {return {name:ticket?.firstName + ' ' + ticket?.lastName, price:ticket?.price, orderId:ticket?.id, createdAt:ticket?.createdAt, profilePic: ticket?.profilePic}})
         event.dataValues.attendeeCount = attendeeCount.length;
         event.dataValues.totalRevenue = totalRevenue;
         event.dataValues.totalTicketsSold = totalTicketsSold;

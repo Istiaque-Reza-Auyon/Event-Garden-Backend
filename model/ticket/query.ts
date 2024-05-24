@@ -22,7 +22,7 @@ const findEventSpecificTicketsQuery = (eventId:number) =>  Attendee.findAll({inc
       model: User,  
     }],
     where: {eventId: eventId},
-    attributes: ['ticket.price', 'user.firstName', 'user.lastName','id','ticket.createdAt'],
+    attributes: ['ticket.price', 'user.firstName', 'user.lastName','user.id','ticket.createdAt','user.profilePic', ],
     raw:true},
     );
 
