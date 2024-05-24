@@ -1,6 +1,7 @@
 
 import { Event,IEvent } from "./model";
 import { Ticket } from "../ticket/model";
+import { Organization } from "../organization/model";
 import { Attendee } from "../attendee/model";
 import { Op } from '@sequelize/core';
 
@@ -25,8 +26,14 @@ const updateEventQuery = async (event:IEvent) => Event.update(event,{ where: { i
 const findAllEventsQuery = (queryObject: any) => Ticket.findAll({
     include: [{
         model: Event,
+        include: [{
+            model: Organization,
+            attributes: ['id','poster'],
+           
+        }],
         where: queryObject.zone?{zone: queryObject.zone} : {},
         attributes: ['id', 'name', 'venue', 'poster', 'startDate', 'organizationId'],   
+        
     }],
     where: queryObject.price?{ 
         price: { 
@@ -35,7 +42,7 @@ const findAllEventsQuery = (queryObject: any) => Ticket.findAll({
      }}: {},
      attributes: [],
      raw: true,
-     group: ['event.id']
+     group: ['event.id', 'event.organization.id']
    })
 
 

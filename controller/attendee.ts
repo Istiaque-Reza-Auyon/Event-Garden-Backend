@@ -24,7 +24,7 @@ const findAllEvents = async (req:Request, res:Response) => {
         const events = await findAllEventsQuery(req.query);
         res.status(200).json(events);
     } catch(e:any) {
-        console.error('Error creating user:', e.message);
+        console.error('Error finding all events:', e.message);
         res.status(500).json(null);
     }
 }
