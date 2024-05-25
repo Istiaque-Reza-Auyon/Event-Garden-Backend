@@ -1,6 +1,5 @@
-import { where } from "sequelize";
-import { Organization } from "../organization/model";
 import {User,IUser} from "../user/model";
+
 
 const createUser = (user:IUser) => User.create ({
     email: user.email,

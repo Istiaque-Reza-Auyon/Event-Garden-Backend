@@ -1,5 +1,4 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { Event } from '../event/model';
 import { Organization } from '../organization/model';
 import db from '../../db';
 

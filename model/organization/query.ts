@@ -1,7 +1,6 @@
 import { Organization,IOrganization } from "./model";
 import { Event } from "../event/model";
 import { Attendee } from "../attendee/model";
-import { Ticket } from "../ticket/model";
 import { JwtPayload } from "jsonwebtoken";
 
 const createOrganizationQuery = (organization:IOrganization) => Organization.create ({

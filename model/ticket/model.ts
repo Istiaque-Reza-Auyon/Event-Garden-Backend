@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import db from '../../db';
-import { Event } from '../event/model';
+
 
 
 //defining user model
