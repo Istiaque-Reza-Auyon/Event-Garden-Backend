@@ -10,7 +10,8 @@ const createTicketQuery = (ticket:ITicket) => Ticket.create ({
     price: ticket.price,
     quantity: ticket.quantity,
     startTime: ticket.startTime,
-    eventId: ticket.eventId
+    eventId: ticket.eventId,
+    description: ticket.description
 })
 
 const findAllTicketsQuery = (eventId:number) => Ticket.findAll({where: {eventId: eventId},},);

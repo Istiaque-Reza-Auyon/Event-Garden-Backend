@@ -79,6 +79,7 @@ const findAllOrganizations = async (req:Request, res:Response) => {
 //Controller for creating ticket
 const createTicket = async (req: Request, res:Response) => {
     const ticketList: any = req.body ;
+    console.log(ticketList);
     ticketList?.map((ticket:ITicket) => ticket.eventId = Number(req.params.eventId))
     try {
         await ticketList.map((ticket:ITicket) => createTicketQuery(ticket));
