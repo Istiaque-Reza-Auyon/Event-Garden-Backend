@@ -11,10 +11,10 @@ import cors from 'cors';
 dotenv.config();
 
 const app: Express = express();
-const port : String | Number = process.env.PORT || 5000;
+const port : String = process.env.PORT!;
 
 app.use(cors({
-  origin: 'http://localhost:3000', 
+  origin: process.env.ORIGIN, 
   credentials: true
 }));
 app.use(express.json());
