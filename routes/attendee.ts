@@ -1,7 +1,7 @@
 import express from "express";
 import { findAllEvents,findOneEvent } from "../controller/attendee";
 import { checkOutUser, findUserById } from "../controller/attendee";
-import { authMiddleware, profileAuthMiddleware } from '../middlewares/auth';
+import { authMiddleware } from '../middlewares/auth';
 import { updateProPic } from "../controller/attendee";
 
 
