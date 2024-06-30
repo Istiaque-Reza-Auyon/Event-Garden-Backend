@@ -14,7 +14,13 @@ const signUp = async (req: Request, res: Response) => {
         const result = await createUser(user);
         if (!result) res.json('error');
         else {
-          res.json(jwt.sign(result.dataValues, secretKey!));
+          const token = jwt.sign(result.dataValues, secretKey!)
+          res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'none'
+        });
+          res.json(token);
         }}
     } catch(e) {
         console.error('Error creating user:', e);
@@ -29,7 +35,13 @@ const signUp = async (req: Request, res: Response) => {
       const user =   await signInUser(signee);
       if (user == null) res.json(null);
       else {
-        res.json(jwt.sign(user.dataValues, secretKey!));
+        const token = jwt.sign(user.dataValues, secretKey!)
+          res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'none'
+        });
+          res.json(token);
       }
     } catch(e) {
         console.error('Error creating user:', e);
