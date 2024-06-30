@@ -18,7 +18,8 @@ const signUp = async (req: Request, res: Response) => {
           res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'none'
+            sameSite: 'none',
+            domain: 'https://event-garden.vercel.app'
         });
           res.json(token);
         }}
@@ -39,7 +40,8 @@ const signUp = async (req: Request, res: Response) => {
           res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'none'
+            sameSite: 'none',
+            domain: 'https://event-garden.vercel.app'
         });
           res.json(token);
       }
