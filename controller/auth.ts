@@ -17,7 +17,7 @@ const signUp = async (req: Request, res: Response) => {
           const token = jwt.sign(result.dataValues, secretKey!)
           res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             domain: 'https://event-garden.vercel.app'
         });
@@ -39,7 +39,7 @@ const signUp = async (req: Request, res: Response) => {
         const token = jwt.sign(user.dataValues, secretKey!)
           res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'none',
             domain: 'https://event-garden.vercel.app'
         });
