@@ -5,10 +5,9 @@ import { findUserByIdQuery } from '../model/user/query';
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const secretKey = process.env.SECRET_KEY!;
-    if (req.cookies) {
-        console.log(req.cookies);
-        jwt.verify(req.cookies.token, secretKey, (err: any, decoded: any) => {
-
+    if (req.headers.token) {
+        console.log(req.headers.token);
+        jwt.verify(req.headers.token as string, secretKey, (err: any, decoded: any) => {
             if (err) {
                 console.log(err)
                 res.json('error parsing jwt')
