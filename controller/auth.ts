@@ -15,12 +15,12 @@ const signUp = async (req: Request, res: Response) => {
         if (!result) res.json('error');
         else {
           const token = jwt.sign(result.dataValues, secretKey!)
-          res.cookie('token', token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none',
-            domain: 'https://event-garden.vercel.app'
-        });
+        //   res.cookie('token', token, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: 'none',
+        //     domain: 'https://event-garden.vercel.app'
+        // });
           res.json(token);
         }}
     } catch(e) {
@@ -37,12 +37,12 @@ const signUp = async (req: Request, res: Response) => {
       if (user == null) res.json(null);
       else {
         const token = jwt.sign(user.dataValues, secretKey!)
-          res.cookie('token', token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'none',
-            domain: 'https://event-garden.vercel.app'
-        });
+        //   res.cookie('token', token, {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: 'none',
+        //     domain: 'https://event-garden.vercel.app'
+        // });
           res.json(token);
       }
     } catch(e) {
