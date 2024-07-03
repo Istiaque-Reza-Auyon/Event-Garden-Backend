@@ -11,8 +11,10 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
                 res.json('error parsing jwt')
             } else {
                 req.body.user = decoded;
-                if (decoded.id === req.params.userId)next();
-                else res.json('error parsing jwt')
+                if(req.params.userId) {
+                    if (decoded.id === Number(req.params.userId)) next();
+                    else res.json('error parsing jwt')
+                } else next();
             }
         });
     }
